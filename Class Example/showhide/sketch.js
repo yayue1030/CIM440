@@ -1,46 +1,42 @@
-var puppies;
-
-var showOrHide = false;
+var puppyImage;
 
 var show;
 var hide;
 
 
+var showAndHide = false;
+
+
+
 
 
 function preload(){
-
-  puppies = loadImage("puppies.jpg");
-
-  show = createButton("Show Puppy");
-  show.mousePressed(function(){
-
-    showOrHide = true;
-
-
- });
-
-  hide = createButton("Hide Puppy");
-  hide.mousePressed(function(){
-    showOrHide = true;
-
-});
+//use to load media
+  puppyImage = loadImage("puppies.jpg");
 }
 
 function setup() {
   // put setup code here
-
   createCanvas(400,400);
+  show = createButton("Show Puppy");
+  show.mousePressed(function(){
+   showAndHide = true;
+});
 
+    hide = createButton("Hide Puppy");
+    hide.mousePressed(function(){
+     showAndHide = false;
+});
 }
+
 
 
 function draw() {
 
   background(255);
-   if(showOrHide == true){
+   if(showAndHide == true){
 
-    image(puppies,100,100, puppies.width/4, puppies.height/4);
+    image(puppyImage,0,0, puppyImage.width/4, puppyImage.height/4);
 
  }
 

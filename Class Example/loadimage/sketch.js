@@ -1,8 +1,8 @@
-var puppies;
+var puppyImage;
 
 function preload(){
-
-  puppies = loadImage("puppies.jpg")
+//use to load media
+  puppyImage = loadImage("puppies.jpg")
 
 }
 
@@ -18,7 +18,10 @@ function setup() {
 function draw() {
    // put drawing code here
    //image var, x position, y position
-   image(puppies,0,0); //full scale
+   image(puppyImage,0,0); //full scale
+
+   //image var, x pos, y pos, width, height
+  // dividing the width and height by a number scales proportionally
 
   //when you divide by a number, the image will scale proporionally
    image(puppies,100,100,puppies.width/4, puppies. height/4);
