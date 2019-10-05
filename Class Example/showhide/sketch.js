@@ -4,7 +4,7 @@ var show;
 var hide;
 
 
-var showAndHide = false;
+var showAndHide = false;//means the program first run, the picture doesnt show,
 
 
 
