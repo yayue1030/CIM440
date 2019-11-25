@@ -1,3 +1,3 @@
 # Midterm
 
-This is my midterm project
+This is my midterm project.
