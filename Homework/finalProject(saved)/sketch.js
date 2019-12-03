@@ -14,36 +14,56 @@ var bodyCol ="HotPink";
 
 var color2 ="orange"
 
-var color3= "random(100,255),random(100,255), random(100,255)";
+var color3= "random(100,255), random(100,255), random(100,255)";
 
+var color4="pink";
 
 var sparkles = [];
 
 
 
+
 function setup() {
-  createCanvas(800, 800);
+	var cnv = createCanvas(800,800);
+  cnv.id("mycanvas");
+
+	var container0 = createDiv();
+	  container0.id("container0");
+
+	  select("#container0").html("<h1><center>MERRY CHRISTMAS!</center></h1><center>");
+
+
+	  select("#container0").style("width", "800px");
+	  select("#container0").style("margin", "0 auto");
+
+	  cnv.parent("#container0");
+
+	  select('body').style("background-color", "#ffd699");
+
+
+
 
 
 
 	song= loadSound("music.mp3", loaded);
 
 	button = createButton("play");
-	button.position(500,30);
+	button.position(690,120);
 	button.size(60,30);
-   button.mousePressed(togglePlaying);
+  button.mousePressed(togglePlaying);
 
 	slider = createSlider(0,1,0.5,0.01);
-	slider.position(580, 30);
-	slider.style('width', '150px');
+	slider.position(770,120);
+	slider.style('width', '130px');
 
 
 	sliderRate = createSlider(0, 1.5, 1, 0.01);
-  sliderRate.position(580, 60);
-sliderRate.style('width', '150px');
+  sliderRate.position(770,150);
+  sliderRate.style('width', '130px');
+
   sliderPan = createSlider(-1, 1, 0, 0.01);
-	sliderPan.position(580, 90);
-	sliderPan.style('width', '150px');
+	sliderPan.position(770,180);
+	sliderPan.style('width', '130px');
 }
 
 function togglePlaying() {
@@ -72,15 +92,17 @@ function draw() {
 	song.pan(sliderPan.value());
 	 song.rate(sliderRate.value());
 
-  background(237, 166, 152);
-  let t = frameCount / 60; // update time
-noStroke();
+
+
+  background("#ffcccc");
+  let t = frameCount / 60;
+  noStroke();
 
   for (var i = 0; i < sparkles.length; i = i + 1) {
     var sparkle = sparkles[i];
 
     fill(sparkle.h, 100, 200-sparkle.frames/2 + random(100));
-     ellipse(sparkle.x, sparkle.y, sparkle.r+16);
+     ellipse(sparkle.x, sparkle.y, sparkle.r+17);
 
     sparkle.x = sparkle.x + sparkle.vx;
     sparkle.y = sparkle.y + sparkle.vy;
@@ -111,13 +133,13 @@ ellipse(650, 370, 16, 16);//eye
 
 stroke(70,56,40);
 strokeWeight(10);
-line(420, 480, 505, 560);
+line(420, 480, 505, 560);//arm
 
-line(790, 480, 730, 560);
+line(790, 480, 730, 560);//arm
 
-fill("pink");
+fill(color4);
 noStroke();
-arc(620, 410, 50, 50, 100, PI + QUARTER_PI, PIE);
+arc(620, 410, 50, 50, 100, PI + QUARTER_PI, PIE);//mouse
 
 
 fill(bodyCol)
@@ -128,19 +150,24 @@ rect(560, 450, 40, 120);
 fill(color2);
 ellipse(620, 590, 30, 30);
 ellipse(620, 660, 30, 30);
-
-
+//end of snowman
 
 
 
 fill(62, 171, 65);
 noStroke();
-  triangle(100, 270, 350, 270, 220, 100);
-	triangle(70, 420, 390, 420, 220, 200);
-	triangle(40, 570, 430, 570, 220, 320);
+triangle(100, 270, 350, 270, 220, 100);
+triangle(70, 420, 390, 420, 220, 200);
+triangle(40, 570, 430, 570, 220, 320);
 
  fill(154, 156, 154);
-	rect(200, 570,60 ,270);
+ rect(200, 570,60 ,270);
+	//end of christmas tree
+
+	//textSize(15);
+	//text('sliderRate', 580, 90);
+ //fill("black");
+
 
 //flashing circles
 // fill(random(100,255),random(255), random(255));
@@ -237,7 +264,10 @@ function snowflake() {
 function mousePressed() {
 
 	bodyCol="skyblue";
-	color2 ="Plum"
+	color2 ="Plum";
+	color4 ="#ff66a3";
+
+
   for (var i = 0; i < 30; i = i + 1) {
     var angle = random(TWO_PI);
     var distance = random(1.5,2);
@@ -252,4 +282,4 @@ function mousePressed() {
       r: 4
     });
   }
-}
+}//end of draw

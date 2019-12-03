@@ -164,6 +164,11 @@ triangle(40, 570, 430, 570, 220, 320);
  rect(200, 570,60 ,270);
 	//end of christmas tree
 
+	//textSize(15);
+	//text('sliderRate', 580, 90);
+ //fill("black");
+
+
 //flashing circles
 // fill(random(100,255),random(255), random(255));
 // ellipse(190, 190, 30, 30);
