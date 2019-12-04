@@ -8,7 +8,7 @@ var slider;
 var sliderRate;
 var sliderPan;
 
-
+var button;
 var bodyCol ="HotPink";
 var color2 ="orange"
 var color3= "random(100,255), random(100,255), random(100,255)";
@@ -18,68 +18,90 @@ var sparkles = [];
 
 var giftX = [];
 var giftY = [];
-var giftAmount = 12;
+var giftAmount = 30;
 var giftImage;
+
+
+var gif_loadImg1, gif_createImg1;
+var gif_loadImg2, gif_createImg2;
+var gif_loadImg3, gif_createImg3;
+var gif_loadImg4, gif_createImg4;
 
 var button1;
 var button2;
 var button3;
 var button4;
 
+var playing = false;
+var chris;
 var button5;
-var button6;
-var manVid;
+
+
 
 
 function preload(){
   leafImage = loadImage("gift.png");
-	manVid = createVideo("man.mp4");
+	chris = createVideo(["man.mp4"]);
+
+
+ gif_loadImg1 = loadImage("https://media.giphy.com/media/WyelgLZRz79rW/giphy.gif");
+ gif_createImg1 = createImg("https://media.giphy.com/media/WyelgLZRz79rW/giphy.gif");
+
+ gif_loadImg2 = loadImage("shiny.gif");
+ gif_createImg2 = createImg("shiny.gif");
+
+ gif_loadImg3 = loadImage("deer.gif");
+ gif_createImg3 = createImg("deer.gif");
+
+ gif_loadImg4 = loadImage("ball.gif");
+ gif_createImg4 = createImg("ball.gif");
 
 }
 
 
 function setup() {
-	var cnv = createCanvas(1200,800);
-  cnv.id("mycanvas");
-    var container0 = createDiv();
-	  container0.id("container0");
-    select("#container0").html("<h1><center>MERRY CHRISTMAS!</center></h1><center>");
-    select("#container0").style("width", "1200px");
-	  select("#container0").style("margin", "0 auto");
-    cnv.parent("#container0");
-		select('body').style("background-color", "#ffd699");
+	createCanvas(1600,800);
+
+	gravity = createVector(0, 0.2);
+	  stroke(255);
+	  strokeWeight(4);
 
   song= loadSound("music.mp3", loaded);
 
-	button1 = createButton("play");
-	button1.position(1100,100);
+	button1 = createButton("Play");
+	button1.position(1400,30);
 	button1.size(90,30);
   button1.mousePressed(togglePlaying);
 
-	button2 = createButton("volume");
-	button2.position(1100,130);
-	button2.size(90,30);
+	button2 = createButton("Volume");
+	button2.position(1320,80);
+	button2.size(50,20);
+
   slider = createSlider(0,1,0.5,0.01);
-	slider.position(1370,120);
+	slider.position(1380,80);
 	slider.style('width', '130px');
 
-  button3 = createButton("rate");
-	button3.position(1100,160);
-	button3.size(90,30);
+
+	button3 = createButton("Rate");
+	button3.position(1320,110);
+	button3.size(50,20);
+
 	sliderRate = createSlider(0, 1.5, 1, 0.01);
-  sliderRate.position(1370,150);
+  sliderRate.position(1380,110);
   sliderRate.style('width', '130px');
 
-  button4 = createButton("pan");
-	button4.position(1100,190);
-	button4.size(90,30);
+  button4 = createButton("Pan");
+	button4.position(1320,140);
+	button4.size(50,20);
+
   sliderPan = createSlider(-1, 1, 0, 0.01);
-	sliderPan.position(1370,180);
+	sliderPan.position(1380,140);
 	sliderPan.style('width', '130px');
 
-	button5 = new hitzoneObject(100,200,50,"red", "Stop", loadImage("stop.png"));
-  button6 = new hitzoneObject(200,200,50,"green", "Play", loadImage("play.png"));
-  manVid.hide();
+	button5 = createButton('PlayVide');
+	button5.position(1500,740);
+	button5.size(70,40);
+	button5.mousePressed(toggleVid);
 
 
 	for(var i = 0; i< giftAmount; i++){
@@ -91,17 +113,28 @@ function setup() {
   console.log("giftY " + giftY);
 }
 
-
 function togglePlaying() {
   if (!song.isPlaying()) {
     song.play();
     song.setVolume(0.3);
-    button1.html("pause");
+    button1.html("play");
   } else {
     song.stop();
-    button1.html("play");
+    button1.html("pause");
   }
 }
+
+function toggleVid() {
+  if (playing) {
+    chris.pause();
+    button5.html('play');
+  } else {
+    chris.loop();
+    button5.html('pause');
+  }
+  playing = !playing;
+}
+
 
 function loaded() {
   console.log("loaded");
@@ -113,12 +146,43 @@ function loaded(){
 
 
 function draw() {
+image(gif_loadImg1);
+ gif_createImg1.position(10, 30);
+ gif_createImg1.size(180,190);//santa
 
-  song.setVolume(slider.value());
+ image(gif_loadImg2);
+  gif_createImg2.position(100, 125);
+  gif_createImg2.size(300,500);//shiny
+
+	image(gif_loadImg3);
+   gif_createImg3.position(935, 180);
+   gif_createImg3.size(550,320);//deer
+
+	 image(gif_loadImg4);
+    gif_createImg4.position(690, 230);
+    gif_createImg4.size(180,300);//ball
+
+		chris.position(880,270);
+		chris.size(650,550);
+
+
+
+ song.setVolume(slider.value());
 	song.pan(sliderPan.value());
 	 song.rate(sliderRate.value());
 
- background("#ffcccc");
+colorMode(RGB);
+ //background("#ffcccc");
+ r = map(mouseX, 0,800, 0 ,36)
+ g = map (mouseY, 0, 800, 0, 93 );
+ b = map(mouseX, 0 , 800, 0 ,199);
+ background(r,g,b);
+
+ textSize(40);
+ fill("lightyellow");
+ text('MERRY CHRISTMAS', 600, 80);
+
+
 
   let t = frameCount / 60;
   noStroke();
@@ -126,15 +190,15 @@ function draw() {
   for (var i = 0; i < sparkles.length; i = i + 1) {
     var sparkle = sparkles[i];
 
-    fill(sparkle.h, 100, 200-sparkle.frames/2 + random(100));
-     ellipse(sparkle.x, sparkle.y, sparkle.r+17);
+    fill(sparkle.h, 180, 200-sparkle.frames/2 + random(100));
+     ellipse(sparkle.x, sparkle.y, sparkle.r+ 30);
 
     sparkle.x = sparkle.x + sparkle.vx;
     sparkle.y = sparkle.y + sparkle.vy;
 
     // add a little friction & gravity
     sparkle.vx = sparkle.vx * 0.99;
-    sparkle.vy = sparkle.vy * 0.99 + 0.02;
+    sparkle.vy = sparkle.vy * 0.99 + 0.10;
 
     // count frames
     sparkle.frames = sparkle.frames + 1;
@@ -145,7 +209,7 @@ function draw() {
   }
 
 
-for(var f = 0; f < giftAmount; f++){
+	for(var f = 0; f < giftAmount; f++){
 	      if(giftY[f]<height -50){
 	        giftY[f]++;
 	        giftX[f] = giftX[f] + sin(radians(frameCount));
@@ -155,13 +219,6 @@ for(var f = 0; f < giftAmount; f++){
 	      image(leafImage, giftX[f], giftY[f], 60, 60);
 
 	    }
-
-//buttons for controlling the vide
-			  button5.display();
-			  button5.check();
-			  console.log("button5 overlay " + button5.overlay);
-			  button6.display();
-			  button6.check();
 
 
 fill(255);
@@ -250,16 +307,22 @@ function snowflake() {
   this.posY = random(-50, 0);
   this.initialangle = random(0, 2 * PI);
   this.size = random(2, 6);
-  this.radius = sqrt(random(pow(width / 2, 2)));
-	this.update = function(time) {
 
+  // radius of snowflake spiral
+  // chosen so the snowflakes are uniformly spread out in area
+  this.radius = sqrt(random(pow(width / 2, 2)));
+
+  this.update = function(time) {
+    // x position follows a circle
     let w = 0.2; // angular speed
     let angle = w * time + this.initialangle;
     this.posX = width / 2 + this.radius * sin(angle);
 
+    // different size snowflakes fall at slightly different y speeds
     this.posY += pow(this.size, 0.5);
 
-   if (this.posY > height) {
+    // delete snowflake if past end of screen
+    if (this.posY > height) {
       let index = snowflakes.indexOf(this);
       snowflakes.splice(index, 1);
     }
@@ -270,28 +333,15 @@ function snowflake() {
   };
 }
 
+
+
 function mousePressed() {
 
-	if(button5.overlay == true){
-    console.log(button5.label);
-
-    manVid.stop();
-    manVid.hide();
-  }
-
-  if(button6.overlay == true){
-    console.log(button6.label);
-    manVid.show();
-    manVid.play();
-    manVid.style("display","inline-block");//place next to an html element
-  }
-
-//color changing
 	bodyCol="skyblue";
 	color2 ="Plum";
 	color4 ="#ff66a3";
 
-//fireworks
+
   for (var i = 0; i < 30; i = i + 1) {
     var angle = random(TWO_PI);
     var distance = random(1.5,2);
@@ -307,37 +357,5 @@ function mousePressed() {
     });
   }
 
-class hitzoneObject{
 
-  constructor(tempX, tempY, tempSize, tempColor,tempLabel, tempImage){
-    this.x = tempX;
-    this.y = tempY;
-    this.boxSize = tempSize;
-    this.boxColor = tempColor;
-    this.overlay = false;
-    this.label = tempLabel;
-    this.image = tempImage;
-  }
-
-  display(){
-    fill(this.boxColor);
-    text(this.label,this.x,this.y -20);
-    //rect(this.x,this.y,this.boxSize,this.boxSize);
-    image(this.image,this.x,this.y,this.boxSize,this.boxSize);
-
-if(this.overlay == true){
-      fill(127,127);
-      rect(this.x,this.y,this.boxSize,this.boxSize);
-    }
-}
-
-  check(){
-    if(mouseX > this.x && mouseX < (this.x + this.boxSize) && mouseY > this.y && mouseY < (this.y + this.boxSize)){
-    //  console.log("over button " + this.boxColor);
-    this.overlay = true;
-    }else{
-      //console.log("off button" + this.boxColor);
-      this.overlay = false;
-    }
-  }
-}
+}//end of draw
