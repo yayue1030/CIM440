@@ -68,7 +68,7 @@ function setup() {
 
   song= loadSound("music.mp3", loaded);
 
-	button1 = createButton("Play");
+	button1 = createButton("PlayMusic");
 	button1.position(1400,30);
 	button1.size(90,30);
   button1.mousePressed(togglePlaying);
